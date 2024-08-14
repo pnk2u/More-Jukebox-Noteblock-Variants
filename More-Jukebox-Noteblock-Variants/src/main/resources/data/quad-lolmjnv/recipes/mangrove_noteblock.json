@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "noteblock",
+  "key": {
+    "+": {
+      "item": "minecraft:redstone"
+    },
+    "P": {
+      "item": "minecraft:mangrove_planks"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "P+P",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "quad-lolmjnv:mangrove_noteblock"
+  }
+}

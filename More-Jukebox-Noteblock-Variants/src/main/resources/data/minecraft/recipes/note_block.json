@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "lieonstudio:noteblocks"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:note_block"
+  }
+}

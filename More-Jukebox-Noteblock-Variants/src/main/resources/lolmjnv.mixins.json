@@ -1,0 +1,15 @@
+{
+  "required": true ,
+  "package": "de.pnku.mjnv.mixin" ,
+  "compatibilityLevel": "JAVA_21" ,
+  "mixins": [
+    "AllayAiMixin" ,
+    "AllayMixin" ,
+    "BlockEntityTypeMixin" ,
+    "RecordItemMixin"
+  ] ,
+  "injectors": {
+    "defaultRequire": 1
+  } ,
+  "minVersion": "0.8"
+}
