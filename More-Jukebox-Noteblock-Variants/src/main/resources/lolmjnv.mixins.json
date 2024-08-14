@@ -6,7 +6,7 @@
     "AllayAiMixin" ,
     "AllayMixin" ,
     "BlockEntityTypeMixin" ,
-    "RecordItemMixin"
+    "JukeboxPlayableMixin"
   ] ,
   "injectors": {
     "defaultRequire": 1
