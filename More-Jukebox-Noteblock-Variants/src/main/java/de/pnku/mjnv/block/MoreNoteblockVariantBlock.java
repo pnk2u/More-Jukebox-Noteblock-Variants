@@ -11,12 +11,12 @@ public class MoreNoteblockVariantBlock extends NoteBlock {
     public final String noteblockWoodType;
 
     public MoreNoteblockVariantBlock(MapColor colour, String noteblockWoodType) {
-        super(Properties.ofFullCopy(Blocks.NOTE_BLOCK).mapColor(colour));
+        super(Properties.copy(Blocks.NOTE_BLOCK).mapColor(colour));
         this.noteblockWoodType = noteblockWoodType;
     }
 
     public MoreNoteblockVariantBlock(MapColor colour, SoundType sound, String noteblockWoodType) {
-        super(Properties.ofFullCopy(Blocks.NOTE_BLOCK).mapColor(colour).sound(sound));
+        super(Properties.copy(Blocks.NOTE_BLOCK).mapColor(colour).sound(sound));
         this.noteblockWoodType = noteblockWoodType;
     }
 
