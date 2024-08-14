@@ -26,7 +26,7 @@ import net.minecraft.world.ticks.ContainerSingleItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Clearable, ContainerSingleItem.BlockContainerSingleItem {
+public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Clearable, ContainerSingleItem {
     private static final int SONG_END_PADDING = 20;
     private ItemStack item;
     private int ticksSinceLastEvent;
@@ -40,12 +40,10 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    public void load(CompoundTag tag) {
+        super.load(tag);
         if (tag.contains("RecordItem", 10)) {
-            this.item = (ItemStack)ItemStack.parse(registries, tag.getCompound("RecordItem")).orElse(ItemStack.EMPTY);
-        } else {
-            this.item = ItemStack.EMPTY;
+            this.item = ItemStack.of(tag.getCompound("RecordItem"));
         }
 
         this.isPlaying = tag.getBoolean("IsPlaying");
@@ -54,10 +52,10 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         if (!this.getTheItem().isEmpty()) {
-            tag.put("RecordItem", this.getTheItem().save(registries));
+            tag.put("RecordItem", this.getTheItem().save(new CompoundTag()));
         }
 
         tag.putBoolean("IsPlaying", this.isPlaying);

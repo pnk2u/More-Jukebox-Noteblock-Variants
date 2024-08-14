@@ -8,6 +8,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +31,7 @@ public abstract class AllayMixin extends PathfinderMob {
 
     @Inject(method = "shouldStopDancing", at = @At("HEAD"), cancellable = true)
     private void injectedShouldStopDancing(CallbackInfoReturnable<Boolean> cir) {
-        if (this.jukeboxPos == null || !this.jukeboxPos.closerToCenterThan((this).position(), (double)((GameEvent)GameEvent.JUKEBOX_PLAY.value()).notificationRadius()) || !(this.level().getBlockState(this.jukeboxPos).getBlock() instanceof MoreJukeboxVariantBlock)){
+        if (this.jukeboxPos == null || !this.jukeboxPos.closerToCenterThan(this.position(), (double)GameEvent.JUKEBOX_PLAY.getNotificationRadius()) || !(this.level().getBlockState(this.jukeboxPos).getBlock() instanceof MoreJukeboxVariantBlock)){
             cir.setReturnValue(true);
         }
     }

@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import de.pnku.mjnv.init.MjnvBlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MoreJukeboxVariantBlock extends JukeboxBlock {
@@ -41,7 +43,7 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
         this.jukeboxWoodType = jukeboxWoodType;
     }
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if ((Boolean)state.getValue(HAS_RECORD)) {
             BlockEntity var7 = level.getBlockEntity(pos);
             if (var7 instanceof MoreJukeboxVariantBlockEntity) {
@@ -55,7 +57,7 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
             BlockEntity var7 = level.getBlockEntity(pos);
             if (var7 instanceof MoreJukeboxVariantBlockEntity) {
@@ -85,7 +87,7 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         BlockEntity var6 = level.getBlockEntity(pos);
         if (var6 instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
             Item var7 = moreJukeboxVariantBlockEntity.getTheItem().getItem();

@@ -19,8 +19,8 @@ import static de.pnku.mjnv.init.MjnvBlockInit.more_jukeboxes;
 import static de.pnku.mjnv.init.MjnvBlockInit.more_noteblocks;
 
 public class MoreJukeboxNoteblockVariantRecipeGenerator extends FabricRecipeProvider {
-    public MoreJukeboxNoteblockVariantRecipeGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public MoreJukeboxNoteblockVariantRecipeGenerator(FabricDataOutput output) {
+        super(output);
     }
 
     @Override
