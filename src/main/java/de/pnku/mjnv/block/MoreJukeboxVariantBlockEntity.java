@@ -1,13 +1,19 @@
 package de.pnku.mjnv.block;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.vinurl.VinURL;
+import com.vinurl.items.VinURLDiscItem;
 import de.pnku.mjnv.init.MjnvBlockInit;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
@@ -80,6 +86,23 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
 
     @VisibleForTesting
     public void startPlaying() {
+        ItemStack recordStack = this.getFirstItem();
+        if (recordStack.getItem() instanceof VinURLDiscItem && !level.isClientSide) {
+            String musicUrl = recordStack.getOrCreateTag().getString("music_url");
+
+            if (musicUrl != null && !musicUrl.isEmpty()) {
+                FriendlyByteBuf bufInfo = PacketByteBufs.create();
+                bufInfo.writeBlockPos(worldPosition);
+                bufInfo.writeUtf(musicUrl);
+
+                level.players().forEach(
+                        playerEntity -> ServerPlayNetworking.send(
+                                (ServerPlayer) playerEntity,
+                                VinURL.CUSTOM_RECORD_PACKET_ID, bufInfo
+                        )
+                );
+            }
+        }
         this.recordStartedTick = this.tickCount;
         this.isPlaying = true;
         this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
@@ -190,6 +213,14 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
                 itemEntity.setDefaultPickUpDelay();
                 this.level.addFreshEntity(itemEntity);
             }
+
+            FriendlyByteBuf bufInfo = PacketByteBufs.create();
+            bufInfo.writeBlockPos(worldPosition);
+            bufInfo.writeUtf("");
+
+            this.level.players().forEach(playerEntity -> {
+                ServerPlayNetworking.send((ServerPlayer) playerEntity, VinURL.CUSTOM_RECORD_PACKET_ID, bufInfo);
+            });
         }
     }
 
