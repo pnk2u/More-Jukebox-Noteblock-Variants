@@ -1,7 +1,10 @@
 package de.pnku.mjnv.block;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.vinurl.VinURL;
+import com.vinurl.items.VinURLDiscItem;
 import de.pnku.mjnv.init.MjnvBlockInit;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -9,6 +12,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
@@ -28,7 +32,10 @@ import net.minecraft.world.ticks.ContainerSingleItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
+
+import static de.pnku.mjnv.MoreJukeboxNoteblockVariants.isVinURLLoaded;
 
 public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Clearable, ContainerSingleItem.BlockContainerSingleItem {
     public static final String SONG_ITEM_TAG_ID = "RecordItem";
@@ -119,6 +126,26 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
         } else {
             this.jukeboxSongPlayer.stop(this.level, this.getBlockState());
         }
+        ItemStack recordStack = this.getTheItem();
+        if (isVinURLLoaded) {
+            if (recordStack.getItem() instanceof VinURLDiscItem && !level.isClientSide()&& recordStack.get(DataComponents.CUSTOM_DATA) != null) {
+                String musicUrl = Objects.requireNonNull(recordStack.get(DataComponents.CUSTOM_DATA)).copyTag().getString("music_url");
+
+                if (musicUrl != null && !musicUrl.isEmpty()) {
+                    level.players().forEach(
+                            playerEntity -> ServerPlayNetworking.send(
+                                (ServerPlayer) playerEntity,
+                                new VinURL.PlaySoundPayload(this.getBlockPos(), musicUrl)
+                                )
+                        );
+                    }
+                }
+                else {
+                        level.players().forEach(playerEntity -> {
+                                ServerPlayNetworking.send((ServerPlayer) playerEntity, new VinURL.PlaySoundPayload(this.getBlockPos(), ""));
+                        });
+                }
+            }
 
     }
 
@@ -164,6 +191,11 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
                 itemEntity.setDefaultPickUpDelay();
                 this.level.addFreshEntity(itemEntity);
             }
+           if (isVinURLLoaded) {
+               level.players().forEach(playerEntity -> {
+                   ServerPlayNetworking.send((ServerPlayer) playerEntity, new VinURL.PlaySoundPayload(this.getBlockPos(), ""));
+               });
+           }
         }
     }
 
