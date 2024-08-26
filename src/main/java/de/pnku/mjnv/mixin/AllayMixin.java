@@ -31,7 +31,7 @@ public abstract class AllayMixin extends PathfinderMob {
 
     @Inject(method = "shouldStopDancing", at = @At("HEAD"), cancellable = true)
     private void injectedShouldStopDancing(CallbackInfoReturnable<Boolean> cir) {
-        if (this.jukeboxPos == null || !this.jukeboxPos.closerToCenterThan(this.position(), (double)GameEvent.JUKEBOX_PLAY.getNotificationRadius()) || !(this.level().getBlockState(this.jukeboxPos).getBlock() instanceof MoreJukeboxVariantBlock)){
+        if (this.jukeboxPos == null || !this.jukeboxPos.closerToCenterThan(this.position(), (double)GameEvent.JUKEBOX_PLAY.value().notificationRadius()) || !(this.level().getBlockState(this.jukeboxPos).getBlock() instanceof MoreJukeboxVariantBlock)){
             cir.setReturnValue(true);
         }
     }
