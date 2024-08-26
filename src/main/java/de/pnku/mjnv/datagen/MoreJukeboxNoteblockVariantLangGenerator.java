@@ -14,12 +14,12 @@ import static de.pnku.mjnv.init.MjnvBlockInit.more_jukeboxes;
 import static de.pnku.mjnv.init.MjnvBlockInit.more_noteblocks;
 
 public class MoreJukeboxNoteblockVariantLangGenerator extends FabricLanguageProvider{
-    public MoreJukeboxNoteblockVariantLangGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        super(dataOutput, registryLookup);
+    public MoreJukeboxNoteblockVariantLangGenerator(FabricDataOutput dataOutput) {
+        super(dataOutput);
     }
 
     @Override
-    public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+    public void generateTranslations(TranslationBuilder translationBuilder) {
         for (Block jukeboxBlock : more_jukeboxes) {
             String jukeboxName = WordUtils.capitalizeFully(((MoreJukeboxVariantBlock) jukeboxBlock).jukeboxWoodType + " Jukebox");
             translationBuilder.add(jukeboxBlock, jukeboxName);

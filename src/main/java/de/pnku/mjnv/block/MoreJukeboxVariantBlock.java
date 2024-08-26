@@ -7,7 +7,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +43,7 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
         this.jukeboxWoodType = jukeboxWoodType;
     }
     @Override
-    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if ((Boolean)state.getValue(HAS_RECORD)) {
             BlockEntity var7 = level.getBlockEntity(pos);
             if (var7 instanceof MoreJukeboxVariantBlockEntity) {
