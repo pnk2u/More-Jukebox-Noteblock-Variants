@@ -41,8 +41,7 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
-	modImplementation "maven.modrinth:vinurl:${project.vinurl_version}"
+	modCompileOnly "maven.modrinth:vinurl:${project.vinurl_version}"
 }
 
 processResources {
