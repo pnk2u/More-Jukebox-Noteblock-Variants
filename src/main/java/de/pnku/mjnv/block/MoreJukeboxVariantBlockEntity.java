@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -37,7 +38,7 @@ import java.util.Objects;
 
 public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Clearable, ContainerSingleItem {
     private static final int SONG_END_PADDING = 20;
-    private final NonNullList<ItemStack> items;
+    private ItemStack item;
     private int ticksSinceLastEvent;
     private long tickCount;
     private long recordStartedTick;
@@ -45,14 +46,16 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
 
     public MoreJukeboxVariantBlockEntity(BlockPos pos, BlockState blockState) {
         super(MjnvBlockInit.MORE_JUKEBOX_VARIANT_BLOCK_ENTITY, pos, blockState);
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        this.item = ItemStack.EMPTY;
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("RecordItem", 10)) {
-            this.items.set(0, ItemStack.of(tag.getCompound("RecordItem")));
+            this.item = (ItemStack)ItemStack.parse(registries, tag.getCompound("RecordItem")).orElse(ItemStack.EMPTY);
+        } else {
+            this.item = ItemStack.EMPTY;
         }
 
         this.isPlaying = tag.getBoolean("IsPlaying");
@@ -61,10 +64,10 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        if (!this.getFirstItem().isEmpty()) {
-            tag.put("RecordItem", this.getFirstItem().save(new CompoundTag()));
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        if (!this.getTheItem().isEmpty()) {
+            tag.put("RecordItem", this.getTheItem().save(registries));
         }
 
         tag.putBoolean("IsPlaying", this.isPlaying);
@@ -72,8 +75,8 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
         tag.putLong("TickCount", this.tickCount);
     }
 
-    public boolean isRecordPlaying() {
-        return !this.getFirstItem().isEmpty() && this.isPlaying;
+    public boolean isRecordPlaying()  {
+        return !this.getTheItem().isEmpty() && this.isPlaying;
     }
 
     private void setHasRecordBlockState(@Nullable Entity entity, boolean hasRecord) {
@@ -86,19 +89,15 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
 
     @VisibleForTesting
     public void startPlaying() {
-        ItemStack recordStack = this.getFirstItem();
-        if (recordStack.getItem() instanceof VinURLDiscItem && !level.isClientSide) {
-            String musicUrl = recordStack.getOrCreateTag().getString("music_url");
+        ItemStack recordStack = this.getTheItem();
+        if (recordStack.getItem() instanceof VinURLDiscItem && !level.isClientSide()) {
+            String musicUrl = Objects.requireNonNull(recordStack.get(DataComponents.CUSTOM_DATA)).copyTag().getString("music_url");
 
             if (musicUrl != null && !musicUrl.isEmpty()) {
-                FriendlyByteBuf bufInfo = PacketByteBufs.create();
-                bufInfo.writeBlockPos(worldPosition);
-                bufInfo.writeUtf(musicUrl);
-
                 level.players().forEach(
                         playerEntity -> ServerPlayNetworking.send(
                                 (ServerPlayer) playerEntity,
-                                VinURL.CUSTOM_RECORD_PACKET_ID, bufInfo
+                                new VinURL.PlaySoundPayload(this.getBlockPos(), musicUrl)
                         )
                 );
             }
@@ -106,7 +105,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
         this.recordStartedTick = this.tickCount;
         this.isPlaying = true;
         this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
-        this.level.levelEvent((Player)null, 1010, this.getBlockPos(), Item.getId(this.getFirstItem().getItem()));
+        this.level.levelEvent((Player)null, 1010, this.getBlockPos(), Item.getId(this.getTheItem().getItem()));
         this.setChanged();
     }
 
@@ -121,7 +120,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     private void tick(Level level, BlockPos pos, BlockState state) {
         ++this.ticksSinceLastEvent;
         if (this.isRecordPlaying()) {
-            Item var5 = this.getFirstItem().getItem();
+            Item var5 = this.getTheItem().getItem();
             if (var5 instanceof RecordItem) {
                 RecordItem recordItem = (RecordItem)var5;
                 if (this.shouldRecordStopPlaying(recordItem)) {
@@ -146,14 +145,14 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     }
 
     @Override
-    public @NotNull ItemStack getItem(int slot) {
-        return (ItemStack)this.items.get(slot);
+    public @NotNull ItemStack getTheItem() {
+        return this.item;
     }
 
     @Override
-    public @NotNull ItemStack removeItem(int slot, int amount) {
-        ItemStack itemStack = (ItemStack) Objects.requireNonNullElse((ItemStack)this.items.get(slot), ItemStack.EMPTY);
-        this.items.set(slot, ItemStack.EMPTY);
+    public ItemStack splitTheItem(int amount) {
+        ItemStack itemStack = this.item;
+        this.item = ItemStack.EMPTY;
         if (!itemStack.isEmpty()) {
             this.setHasRecordBlockState((Entity)null, false);
             this.stopPlaying();
@@ -163,11 +162,13 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     }
 
     @Override
-    public void setItem(int slot, ItemStack stack) {
-        if (stack.is(ItemTags.MUSIC_DISCS) && this.level != null) {
-            this.items.set(slot, stack);
+    public void setTheItem(ItemStack item) {
+        if (item.is(ItemTags.MUSIC_DISCS) && this.level != null) {
+            this.item = item;
             this.setHasRecordBlockState((Entity)null, true);
             this.startPlaying();
+        } else if (item.isEmpty()) {
+            this.splitTheItem(1);
         }
 
     }
@@ -175,6 +176,10 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     @Override
     public int getMaxStackSize() {
         return 1;
+    }
+
+    public BlockEntity getContainerBlockEntity() {
+        return this;
     }
 
     @Override
@@ -204,9 +209,9 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     public void popOutRecord() {
         if (this.level != null && !this.level.isClientSide) {
             BlockPos blockPos = this.getBlockPos();
-            ItemStack itemStack = this.getFirstItem();
+            ItemStack itemStack = this.getTheItem();
             if (!itemStack.isEmpty()) {
-                this.removeFirstItem();
+                this.removeTheItem();
                 Vec3 vec3 = Vec3.atLowerCornerWithOffset(blockPos, 0.5, 1.01, 0.5).offsetRandom(this.level.random, 0.7F);
                 ItemStack itemStack2 = itemStack.copy();
                 ItemEntity itemEntity = new ItemEntity(this.level, vec3.x(), vec3.y(), vec3.z(), itemStack2);
@@ -218,9 +223,12 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
             bufInfo.writeBlockPos(worldPosition);
             bufInfo.writeUtf("");
 
-            this.level.players().forEach(playerEntity -> {
-                ServerPlayNetworking.send((ServerPlayer) playerEntity, VinURL.CUSTOM_RECORD_PACKET_ID, bufInfo);
-            });
+            this.level.players().forEach(
+                    playerEntity -> ServerPlayNetworking.send(
+                            (ServerPlayer) playerEntity,
+                            new VinURL.PlaySoundPayload(this.getBlockPos(), "")
+                    )
+            );
         }
     }
 
@@ -230,7 +238,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
 
     @VisibleForTesting
     public void setRecordWithoutPlaying(ItemStack stack) {
-        this.items.set(0, stack);
+        this.item = stack;
         this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
         this.setChanged();
     }

@@ -34,12 +34,12 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     public final String jukeboxWoodType;
 
     public MoreJukeboxVariantBlock(MapColor colour, String jukeboxWoodType) {
-        super(Properties.copy(Blocks.JUKEBOX).mapColor(colour));
+        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour));
         this.jukeboxWoodType = jukeboxWoodType;
     }
 
     public MoreJukeboxVariantBlock(MapColor colour, SoundType sound, String jukeboxWoodType) {
-        super(Properties.copy(Blocks.JUKEBOX).mapColor(colour).sound(sound));
+        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).sound(sound));
         this.jukeboxWoodType = jukeboxWoodType;
     }
     @Override
@@ -90,7 +90,7 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         BlockEntity var6 = level.getBlockEntity(pos);
         if (var6 instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
-            Item var7 = moreJukeboxVariantBlockEntity.getFirstItem().getItem();
+            Item var7 = moreJukeboxVariantBlockEntity.getTheItem().getItem();
             if (var7 instanceof RecordItem recordItem) {
                 return recordItem.getAnalogOutput();
             }

@@ -5,25 +5,26 @@ import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
 import de.pnku.mjnv.block.MoreNoteblockVariantBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 import static de.pnku.mjnv.init.MjnvBlockInit.more_jukeboxes;
 import static de.pnku.mjnv.init.MjnvBlockInit.more_noteblocks;
 
 public class MoreJukeboxNoteblockVariantRecipeGenerator extends FabricRecipeProvider {
-    public MoreJukeboxNoteblockVariantRecipeGenerator(FabricDataOutput output) {
-        super(output);
+    public MoreJukeboxNoteblockVariantRecipeGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture);
     }
 
     @Override
-    public void buildRecipes(Consumer<FinishedRecipe> recipeOutput) {
+    public void buildRecipes(RecipeOutput recipeOutput) {
         for (Block jukeboxBlock : more_jukeboxes) {
             String planksWood = ((MoreJukeboxVariantBlock) jukeboxBlock).jukeboxWoodType;
             Item jukeboxPlanks = ((MoreJukeboxVariantBlock) jukeboxBlock).getPlanksItem(planksWood);

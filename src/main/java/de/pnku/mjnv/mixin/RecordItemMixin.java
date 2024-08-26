@@ -33,7 +33,7 @@ public class RecordItemMixin {
                 BlockEntity blockEntity = level.getBlockEntity(blockPos);
                 if (blockEntity instanceof MoreJukeboxVariantBlockEntity) {
                     MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)blockEntity;
-                    moreJukeboxVariantBlockEntity.setFirstItem(itemStack.copy());
+                    moreJukeboxVariantBlockEntity.setTheItem(itemStack.copy());
                     level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, blockState));
                 }
 

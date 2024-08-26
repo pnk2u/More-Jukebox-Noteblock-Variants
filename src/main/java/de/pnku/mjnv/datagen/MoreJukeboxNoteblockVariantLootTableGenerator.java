@@ -11,8 +11,8 @@ import static de.pnku.mjnv.init.MjnvBlockInit.more_jukeboxes;
 import static de.pnku.mjnv.init.MjnvBlockInit.more_noteblocks;
 
 public class MoreJukeboxNoteblockVariantLootTableGenerator extends FabricBlockLootTableProvider {
-    public MoreJukeboxNoteblockVariantLootTableGenerator(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    public MoreJukeboxNoteblockVariantLootTableGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
