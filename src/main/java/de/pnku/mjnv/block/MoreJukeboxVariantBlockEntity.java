@@ -36,6 +36,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+import static de.pnku.mjnv.MoreJukeboxNoteblockVariants.isVinURLLoaded;
+
 public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Clearable, ContainerSingleItem {
     private static final int SONG_END_PADDING = 20;
     private ItemStack item;
@@ -90,6 +92,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     @VisibleForTesting
     public void startPlaying() {
         ItemStack recordStack = this.getTheItem();
+       if (isVinURLLoaded) {
         if (recordStack.getItem() instanceof VinURLDiscItem && !level.isClientSide()) {
             String musicUrl = Objects.requireNonNull(recordStack.get(DataComponents.CUSTOM_DATA)).copyTag().getString("music_url");
 
@@ -102,6 +105,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
                 );
             }
         }
+       }
         this.recordStartedTick = this.tickCount;
         this.isPlaying = true;
         this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
@@ -219,6 +223,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
                 this.level.addFreshEntity(itemEntity);
             }
 
+           if (isVinURLLoaded) {
             FriendlyByteBuf bufInfo = PacketByteBufs.create();
             bufInfo.writeBlockPos(worldPosition);
             bufInfo.writeUtf("");
@@ -229,6 +234,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
                             new VinURL.PlaySoundPayload(this.getBlockPos(), "")
                     )
             );
+          }
         }
     }
 
