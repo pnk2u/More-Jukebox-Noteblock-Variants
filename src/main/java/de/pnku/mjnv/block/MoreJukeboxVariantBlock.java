@@ -43,7 +43,7 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
         this.jukeboxWoodType = jukeboxWoodType;
     }
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if ((Boolean)state.getValue(HAS_RECORD)) {
             BlockEntity var7 = level.getBlockEntity(pos);
             if (var7 instanceof MoreJukeboxVariantBlockEntity) {
