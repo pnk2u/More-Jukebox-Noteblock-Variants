@@ -35,6 +35,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+import static de.pnku.mjnv.MoreJukeboxNoteblockVariants.isVinURLLoaded;
+
 public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Clearable, ContainerSingleItem {
     private static final int SONG_END_PADDING = 20;
     private final NonNullList<ItemStack> items;
@@ -87,6 +89,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     @VisibleForTesting
     public void startPlaying() {
         ItemStack recordStack = this.getFirstItem();
+       if (isVinURLLoaded) {
         if (recordStack.getItem() instanceof VinURLDiscItem && !level.isClientSide) {
             String musicUrl = recordStack.getOrCreateTag().getString("music_url");
 
@@ -103,6 +106,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
                 );
             }
         }
+       }
         this.recordStartedTick = this.tickCount;
         this.isPlaying = true;
         this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
@@ -214,6 +218,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
                 this.level.addFreshEntity(itemEntity);
             }
 
+           if (isVinURLLoaded) {
             FriendlyByteBuf bufInfo = PacketByteBufs.create();
             bufInfo.writeBlockPos(worldPosition);
             bufInfo.writeUtf("");
@@ -221,6 +226,7 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
             this.level.players().forEach(playerEntity -> {
                 ServerPlayNetworking.send((ServerPlayer) playerEntity, VinURL.CUSTOM_RECORD_PACKET_ID, bufInfo);
             });
+          }
         }
     }
 
