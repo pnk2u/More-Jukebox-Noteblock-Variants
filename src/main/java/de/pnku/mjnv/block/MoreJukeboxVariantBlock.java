@@ -1,12 +1,14 @@
 package de.pnku.mjnv.block;
 
 import com.mojang.serialization.MapCodec;
+import de.pnku.mjnv.MoreJukeboxNoteblockVariants;
 import de.pnku.mjnv.init.MjnvBlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -33,38 +36,34 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     public final String jukeboxWoodType;
 
     public MoreJukeboxVariantBlock(MapColor colour, String jukeboxWoodType) {
-        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour));
+        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).setId(ResourceKey.create(Registries.BLOCK, MoreJukeboxNoteblockVariants.asId(jukeboxWoodType + "_noteblock"))));
         this.jukeboxWoodType = jukeboxWoodType;
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(HAS_RECORD, false));
     }
 
     public MoreJukeboxVariantBlock(MapColor colour, SoundType sound, String jukeboxWoodType) {
-        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).sound(sound));
+        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).setId(ResourceKey.create(Registries.BLOCK, MoreJukeboxNoteblockVariants.asId(jukeboxWoodType + "_noteblock"))).sound(sound));
         this.jukeboxWoodType = jukeboxWoodType;
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(HAS_RECORD, false));
     }
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if ((Boolean)state.getValue(HAS_RECORD)) {
-            BlockEntity var7 = level.getBlockEntity(pos);
-            if (var7 instanceof MoreJukeboxVariantBlockEntity) {
-                MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)var7;
+            if ((Boolean)state.getValue(HAS_RECORD) && level.getBlockEntity(pos) instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
                 moreJukeboxVariantBlockEntity.popOutTheItem();
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
+            } else {
+                return InteractionResult.PASS;
             }
         }
 
-        return InteractionResult.PASS;
-    }
-
     @Override
-    protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if ((Boolean)state.getValue(HAS_RECORD)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    protected @NotNull InteractionResult useItemOn(ItemStack stack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult hitResult) {
+        if ((Boolean)blockState.getValue(HAS_RECORD)) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         } else {
-            ItemStack itemStack = player.getItemInHand(hand);
-            ItemInteractionResult itemInteractionResult = JukeboxPlayable.tryInsertIntoJukebox(level, pos, itemStack, player);
-            return !itemInteractionResult.consumesAction() ? ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION : itemInteractionResult;
+            ItemStack itemStack2 = player.getItemInHand(interactionHand);
+            InteractionResult interactionResult = JukeboxPlayable.tryInsertIntoJukebox(level, blockPos, itemStack2, player);
+            return (InteractionResult)(!interactionResult.consumesAction() ? InteractionResult.TRY_WITH_EMPTY_HAND : interactionResult);
         }
     }
 
@@ -155,7 +154,7 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{HAS_RECORD});
+        builder.add(HAS_RECORD);
     }
 
     static {

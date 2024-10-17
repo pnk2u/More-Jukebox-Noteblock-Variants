@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "noteblock",
   "key": {
-    "+": {
-      "item": "minecraft:redstone"
-    },
-    "P": {
-      "item": "minecraft:mangrove_planks"
-    }
+    "+": "minecraft:redstone",
+    "P": "minecraft:mangrove_planks"
   },
   "pattern": [
     "PPP",

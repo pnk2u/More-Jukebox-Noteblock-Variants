@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "jukebox",
   "key": {
-    "0": {
-      "item": "minecraft:diamond"
-    },
-    "P": {
-      "item": "minecraft:crimson_planks"
-    }
+    "0": "minecraft:diamond",
+    "P": "minecraft:crimson_planks"
   },
   "pattern": [
     "PPP",
