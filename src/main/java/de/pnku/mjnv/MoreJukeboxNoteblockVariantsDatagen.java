@@ -10,9 +10,9 @@ public class MoreJukeboxNoteblockVariantsDatagen implements DataGeneratorEntrypo
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();
 
-        pack.addProvider(MoreJukeboxNoteblockVariantRecipeGenerator::new);
-        pack.addProvider(MoreJukeboxNoteblockVariantBlockStateGenerator::new);
-        pack.addProvider(MoreJukeboxNoteblockVariantLootTableGenerator::new);
-        pack.addProvider(MoreJukeboxNoteblockVariantLangGenerator::new);
+        //pack.addProvider(MoreJukeboxNoteblockVariantRecipeGenerator::new);
+        //pack.addProvider(MoreJukeboxNoteblockVariantBlockStateGenerator::new);
+        //pack.addProvider(MoreJukeboxNoteblockVariantLootTableGenerator::new);
+        //pack.addProvider(MoreJukeboxNoteblockVariantLangGenerator::new);
     }
 }

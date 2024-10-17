@@ -4,6 +4,7 @@ import de.pnku.mjnv.MoreJukeboxNoteblockVariants;
 import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
 import de.pnku.mjnv.block.MoreJukeboxVariantBlockEntity;
 import de.pnku.mjnv.block.MoreNoteblockVariantBlock;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.core.Registry;
@@ -68,7 +69,7 @@ public class MjnvBlockInit {
         registerNoteblockBlock(CRIMSON_NOTEBLOCK);
         registerNoteblockBlock(WARPED_NOTEBLOCK);
 
-        MORE_JUKEBOX_VARIANT_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, MoreJukeboxNoteblockVariants.asId("more_smoker_variant"), BlockEntityType.Builder.of(MoreJukeboxVariantBlockEntity::new, more_jukeboxes.toArray(Block[]::new)).build(null));
+        MORE_JUKEBOX_VARIANT_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, MoreJukeboxNoteblockVariants.asId("more_smoker_variant"), FabricBlockEntityTypeBuilder.create(MoreJukeboxVariantBlockEntity::new, more_jukeboxes.toArray(Block[]::new)).build(null));
 
     }
 

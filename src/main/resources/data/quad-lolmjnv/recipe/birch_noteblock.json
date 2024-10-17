@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "noteblock",
   "key": {
-    "+": {
-      "item": "minecraft:redstone"
-    },
-    "P": {
-      "item": "minecraft:birch_planks"
-    }
+    "+": "minecraft:redstone",
+    "P": "minecraft:birch_planks"
   },
   "pattern": [
     "PPP",
