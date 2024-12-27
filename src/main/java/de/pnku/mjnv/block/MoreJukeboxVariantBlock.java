@@ -36,13 +36,13 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     public final String jukeboxWoodType;
 
     public MoreJukeboxVariantBlock(MapColor colour, String jukeboxWoodType) {
-        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).setId(ResourceKey.create(Registries.BLOCK, MoreJukeboxNoteblockVariants.asId(jukeboxWoodType + "_noteblock"))));
+        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).setId(ResourceKey.create(Registries.BLOCK, MoreJukeboxNoteblockVariants.asId(jukeboxWoodType + "_jukebox"))));
         this.jukeboxWoodType = jukeboxWoodType;
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(HAS_RECORD, false));
     }
 
     public MoreJukeboxVariantBlock(MapColor colour, SoundType sound, String jukeboxWoodType) {
-        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).setId(ResourceKey.create(Registries.BLOCK, MoreJukeboxNoteblockVariants.asId(jukeboxWoodType + "_noteblock"))).sound(sound));
+        super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).setId(ResourceKey.create(Registries.BLOCK, MoreJukeboxNoteblockVariants.asId(jukeboxWoodType + "_jukebox"))).sound(sound));
         this.jukeboxWoodType = jukeboxWoodType;
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(HAS_RECORD, false));
     }
