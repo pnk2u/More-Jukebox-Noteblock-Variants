@@ -69,7 +69,7 @@ public class MjnvBlockInit {
         registerNoteblockBlock(CRIMSON_NOTEBLOCK);
         registerNoteblockBlock(WARPED_NOTEBLOCK);
 
-        MORE_JUKEBOX_VARIANT_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, MoreJukeboxNoteblockVariants.asId("more_smoker_variant"), FabricBlockEntityTypeBuilder.create(MoreJukeboxVariantBlockEntity::new, more_jukeboxes.toArray(Block[]::new)).build(null));
+        MORE_JUKEBOX_VARIANT_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, MoreJukeboxNoteblockVariants.asId("more_jukebox_variant"), FabricBlockEntityTypeBuilder.create(MoreJukeboxVariantBlockEntity::new, more_jukeboxes.toArray(Block[]::new)).build(null));
 
     }
 
