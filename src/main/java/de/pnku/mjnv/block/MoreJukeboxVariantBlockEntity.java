@@ -1,10 +1,8 @@
 package de.pnku.mjnv.block;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.vinurl.VinURL;
-import com.vinurl.items.VinURLDiscItem;
+import com.vinurl.api.VinURLSound;
 import de.pnku.mjnv.init.MjnvBlockInit;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -12,27 +10,20 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.JukeboxSongPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.ticks.ContainerSingleItem;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static de.pnku.mjnv.MoreJukeboxNoteblockVariants.isVinURLLoaded;
@@ -128,24 +119,8 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
         }
         ItemStack recordStack = this.getTheItem();
         if (isVinURLLoaded) {
-            if (recordStack.getItem() instanceof VinURLDiscItem && !level.isClientSide()&& recordStack.get(DataComponents.CUSTOM_DATA) != null) {
-                String musicUrl = Objects.requireNonNull(recordStack.get(DataComponents.CUSTOM_DATA)).copyTag().getString("music_url");
-
-                if (musicUrl != null && !musicUrl.isEmpty()) {
-                    level.players().forEach(
-                            playerEntity -> ServerPlayNetworking.send(
-                                (ServerPlayer) playerEntity,
-                                new VinURL.PlaySoundPayload(this.getBlockPos(), musicUrl)
-                                )
-                        );
-                    }
-                }
-                else {
-                        level.players().forEach(playerEntity -> {
-                                ServerPlayNetworking.send((ServerPlayer) playerEntity, new VinURL.PlaySoundPayload(this.getBlockPos(), ""));
-                        });
-                }
-            }
+            VinURLSound.play(this.level, recordStack, this.getBlockPos());
+        }
 
     }
 
@@ -182,20 +157,18 @@ public class MoreJukeboxVariantBlockEntity extends BlockEntity implements Cleara
     public void popOutTheItem() {
         if (this.level != null && !this.level.isClientSide) {
             BlockPos blockPos = this.getBlockPos();
-            ItemStack itemStack = this.getTheItem();
-            if (!itemStack.isEmpty()) {
+            ItemStack recordStack = this.getTheItem();
+            if (!recordStack.isEmpty()) {
                 this.removeTheItem();
                 Vec3 vec3 = Vec3.atLowerCornerWithOffset(blockPos, 0.5, 1.01, 0.5).offsetRandom(this.level.random, 0.7F);
-                ItemStack itemStack2 = itemStack.copy();
+                ItemStack itemStack2 = recordStack.copy();
                 ItemEntity itemEntity = new ItemEntity(this.level, vec3.x(), vec3.y(), vec3.z(), itemStack2);
                 itemEntity.setDefaultPickUpDelay();
                 this.level.addFreshEntity(itemEntity);
             }
-           if (isVinURLLoaded) {
-               level.players().forEach(playerEntity -> {
-                   ServerPlayNetworking.send((ServerPlayer) playerEntity, new VinURL.PlaySoundPayload(this.getBlockPos(), ""));
-               });
-           }
+            if (isVinURLLoaded) {
+                VinURLSound.stop(this.level, recordStack, blockPos);
+            }
         }
     }
 
