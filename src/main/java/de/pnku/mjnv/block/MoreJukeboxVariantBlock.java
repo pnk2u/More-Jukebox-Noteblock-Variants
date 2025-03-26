@@ -29,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MoreJukeboxVariantBlock extends JukeboxBlock {
-    public static final BooleanProperty HAS_RECORD;
     public final String jukeboxWoodType;
 
     public MoreJukeboxVariantBlock(MapColor colour, String jukeboxWoodType) {
@@ -42,76 +41,6 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
         super(Properties.ofFullCopy(Blocks.JUKEBOX).mapColor(colour).sound(sound));
         this.jukeboxWoodType = jukeboxWoodType;
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(HAS_RECORD, false));
-    }
-    @Override
-    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if ((Boolean)state.getValue(HAS_RECORD)) {
-            BlockEntity var7 = level.getBlockEntity(pos);
-            if (var7 instanceof MoreJukeboxVariantBlockEntity) {
-                MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)var7;
-                moreJukeboxVariantBlockEntity.popOutTheItem();
-                return InteractionResult.sidedSuccess(level.isClientSide);
-            }
-        }
-
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if ((Boolean)state.getValue(HAS_RECORD)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        } else {
-            ItemStack itemStack = player.getItemInHand(hand);
-            ItemInteractionResult itemInteractionResult = JukeboxPlayable.tryInsertIntoJukebox(level, pos, itemStack, player);
-            return !itemInteractionResult.consumesAction() ? ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION : itemInteractionResult;
-        }
-    }
-
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity var7 = level.getBlockEntity(pos);
-            if (var7 instanceof MoreJukeboxVariantBlockEntity) {
-                MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)var7;
-                moreJukeboxVariantBlockEntity.popOutTheItem();
-            }
-
-            super.onRemove(state, level, pos, newState, movedByPiston);
-        }
-    }
-
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new MoreJukeboxVariantBlockEntity(pos, state);
-    }
-
-    @Override
-    public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        BlockEntity var6 = level.getBlockEntity(pos);
-        if (var6 instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
-            if (moreJukeboxVariantBlockEntity.getSongPlayer().isPlaying()) {
-                return 15;
-            }
-        }
-
-        return 0;
-    }
-
-    @Override
-    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        BlockEntity var5 = level.getBlockEntity(pos);
-        if (var5 instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
-            return moreJukeboxVariantBlockEntity.getComparatorOutput();
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return (Boolean)state.getValue(HAS_RECORD) ? createTickerHelper(blockEntityType, MjnvBlockInit.MORE_JUKEBOX_VARIANT_BLOCK_ENTITY, MoreJukeboxVariantBlockEntity::tick) : null;
     }
 
     public Item getPlanksItem(String planksWood) {
@@ -152,13 +81,5 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
 
         }
         return null;
-    }
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{HAS_RECORD});
-    }
-
-    static {
-        HAS_RECORD = BlockStateProperties.HAS_RECORD;
     }
 }

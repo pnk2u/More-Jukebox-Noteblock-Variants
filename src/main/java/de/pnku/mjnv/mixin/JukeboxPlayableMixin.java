@@ -1,7 +1,6 @@
 package de.pnku.mjnv.mixin;
 
 import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
-import de.pnku.mjnv.block.MoreJukeboxVariantBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.stats.Stats;
@@ -11,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.JukeboxPlayable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,16 +31,13 @@ public class JukeboxPlayableMixin {
             if (blockState.getBlock() instanceof MoreJukeboxVariantBlock && !(Boolean)blockState.getValue(MoreJukeboxVariantBlock.HAS_RECORD)) {
                 if (!level.isClientSide) {
                     ItemStack itemStack = stack.consumeAndReturn(1, player);
-                    BlockEntity var8 = level.getBlockEntity(pos);
-                    if (var8 instanceof MoreJukeboxVariantBlockEntity) {
-                        MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)var8;
-                        moreJukeboxVariantBlockEntity.setTheItem(itemStack);
+                    BlockEntity blockEntity = level.getBlockEntity(pos);
+                    if (blockEntity instanceof JukeboxBlockEntity jukeboxBlockEntity) {
+                        jukeboxBlockEntity.setTheItem(itemStack);
                         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
                     }
-
                     player.awardStat(Stats.PLAY_RECORD);
                 }
-
                 cir.setReturnValue(ItemInteractionResult.sidedSuccess(level.isClientSide));
             }
         }
