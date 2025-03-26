@@ -1,7 +1,6 @@
 package de.pnku.mjnv.mixin;
 
 import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
-import de.pnku.mjnv.block.MoreJukeboxVariantBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.stats.Stats;
@@ -32,14 +31,13 @@ public class JukeboxPlayableMixin {
             if (blockState.getBlock() instanceof MoreJukeboxVariantBlock && !(Boolean)blockState.getValue(MoreJukeboxVariantBlock.HAS_RECORD)) {
                 if (!level.isClientSide) {
                     ItemStack itemStack = stack.consumeAndReturn(1, player);
-                    if (level.getBlockEntity(pos) instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
-                        moreJukeboxVariantBlockEntity.setTheItem(itemStack);
+                    BlockEntity blockEntity = level.getBlockEntity(pos);
+                    if (blockEntity instanceof JukeboxBlockEntity jukeboxBlockEntity) {
+                        jukeboxBlockEntity.setTheItem(itemStack);
                         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
                     }
-
                     player.awardStat(Stats.PLAY_RECORD);
                 }
-
                 cir.setReturnValue(InteractionResult.SUCCESS);
             }
         }

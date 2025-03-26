@@ -2,9 +2,7 @@ package de.pnku.mjnv.init;
 
 import de.pnku.mjnv.MoreJukeboxNoteblockVariants;
 import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
-import de.pnku.mjnv.block.MoreJukeboxVariantBlockEntity;
 import de.pnku.mjnv.block.MoreNoteblockVariantBlock;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.core.Registry;
@@ -16,30 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MjnvBlockInit {
-    public static final MoreJukeboxVariantBlock BIRCH_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.SAND, "birch");
-    public static final MoreJukeboxVariantBlock DARK_OAK_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_BROWN, "dark_oak");
-    public static final MoreJukeboxVariantBlock OAK_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.WOOD, "oak");
-    public static final MoreJukeboxVariantBlock SPRUCE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.PODZOL, "spruce");
-    public static final MoreJukeboxVariantBlock JUNGLE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.DIRT, "jungle");
-    public static final MoreJukeboxVariantBlock ACACIA_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_ORANGE, "acacia");
-    public static final MoreJukeboxVariantBlock MANGROVE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_RED, "mangrove");
-    public static final MoreJukeboxVariantBlock CHERRY_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.TERRACOTTA_WHITE, SoundType.CHERRY_WOOD, "cherry");
-    public static final MoreJukeboxVariantBlock BAMBOO_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_YELLOW, SoundType.BAMBOO_WOOD, "bamboo");
-    public static final MoreJukeboxVariantBlock CRIMSON_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.CRIMSON_STEM, SoundType.NETHER_WOOD, "crimson");
-    public static final MoreJukeboxVariantBlock WARPED_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.WARPED_STEM, SoundType.NETHER_WOOD, "warped");
-    public static final MoreNoteblockVariantBlock BIRCH_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.SAND, "birch");
-    public static final MoreNoteblockVariantBlock DARK_OAK_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_BROWN, "dark_oak");
-    public static final MoreNoteblockVariantBlock OAK_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.WOOD, "oak");
-    public static final MoreNoteblockVariantBlock SPRUCE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.PODZOL, "spruce");
-    public static final MoreNoteblockVariantBlock JUNGLE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.DIRT, "jungle");
-    public static final MoreNoteblockVariantBlock ACACIA_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_ORANGE, "acacia");
-    public static final MoreNoteblockVariantBlock MANGROVE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_RED, "mangrove");
-    public static final MoreNoteblockVariantBlock CHERRY_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.TERRACOTTA_WHITE, SoundType.CHERRY_WOOD, "cherry");
-    public static final MoreNoteblockVariantBlock BAMBOO_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_YELLOW, SoundType.BAMBOO_WOOD, "bamboo");
-    public static final MoreNoteblockVariantBlock CRIMSON_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.CRIMSON_STEM, SoundType.NETHER_WOOD, "crimson");
-    public static final MoreNoteblockVariantBlock WARPED_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.WARPED_STEM, SoundType.NETHER_WOOD, "warped");
-
-    public static BlockEntityType<MoreJukeboxVariantBlockEntity> MORE_JUKEBOX_VARIANT_BLOCK_ENTITY;
+    public static final Block BIRCH_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.SAND, "birch");
+    public static final Block DARK_OAK_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_BROWN, "dark_oak");
+    public static final Block OAK_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.WOOD, "oak");
+    public static final Block SPRUCE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.PODZOL, "spruce");
+    public static final Block JUNGLE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.DIRT, "jungle");
+    public static final Block ACACIA_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_ORANGE, "acacia");
+    public static final Block MANGROVE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_RED, "mangrove");
+    public static final Block CHERRY_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.TERRACOTTA_WHITE, SoundType.CHERRY_WOOD, "cherry");
+    public static final Block BAMBOO_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_YELLOW, SoundType.BAMBOO_WOOD, "bamboo");
+    public static final Block CRIMSON_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.CRIMSON_STEM, SoundType.NETHER_WOOD, "crimson");
+    public static final Block WARPED_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.WARPED_STEM, SoundType.NETHER_WOOD, "warped");
+    public static final Block BIRCH_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.SAND, "birch");
+    public static final Block DARK_OAK_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_BROWN, "dark_oak");
+    public static final Block OAK_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.WOOD, "oak");
+    public static final Block SPRUCE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.PODZOL, "spruce");
+    public static final Block JUNGLE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.DIRT, "jungle");
+    public static final Block ACACIA_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_ORANGE, "acacia");
+    public static final Block MANGROVE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_RED, "mangrove");
+    public static final Block CHERRY_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.TERRACOTTA_WHITE, SoundType.CHERRY_WOOD, "cherry");
+    public static final Block BAMBOO_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_YELLOW, SoundType.BAMBOO_WOOD, "bamboo");
+    public static final Block CRIMSON_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.CRIMSON_STEM, SoundType.NETHER_WOOD, "crimson");
+    public static final Block WARPED_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.WARPED_STEM, SoundType.NETHER_WOOD, "warped");
 
     public static final List<Block> more_jukeboxes = new ArrayList<>();
     public static final List<Block> more_noteblocks = new ArrayList<>();
@@ -69,17 +65,18 @@ public class MjnvBlockInit {
         registerNoteblockBlock(CRIMSON_NOTEBLOCK);
         registerNoteblockBlock(WARPED_NOTEBLOCK);
 
-        MORE_JUKEBOX_VARIANT_BLOCK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, MoreJukeboxNoteblockVariants.asId("more_jukebox_variant"), FabricBlockEntityTypeBuilder.create(MoreJukeboxVariantBlockEntity::new, more_jukeboxes.toArray(Block[]::new)).build(null));
-
+        for (Block jukeboxBlock : more_jukeboxes) {
+            BlockEntityType.JUKEBOX.addSupportedBlock(jukeboxBlock);
+        }
     }
 
-    private static void registerJukeboxBlock(MoreJukeboxVariantBlock jukebox) {
-        Registry.register(BuiltInRegistries.BLOCK, MoreJukeboxNoteblockVariants.asId(jukebox.jukeboxWoodType + "_jukebox"), jukebox);
+    private static void registerJukeboxBlock(Block jukebox) {
+        Registry.register(BuiltInRegistries.BLOCK, MoreJukeboxNoteblockVariants.asId(((MoreJukeboxVariantBlock)jukebox).jukeboxWoodType + "_jukebox"), jukebox);
         more_jukeboxes.add(jukebox);
     }
 
-    private static void registerNoteblockBlock(MoreNoteblockVariantBlock noteblock) {
-        Registry.register(BuiltInRegistries.BLOCK, MoreJukeboxNoteblockVariants.asId(noteblock.noteblockWoodType + "_noteblock"), noteblock);
+    private static void registerNoteblockBlock(Block noteblock) {
+        Registry.register(BuiltInRegistries.BLOCK, MoreJukeboxNoteblockVariants.asId(((MoreNoteblockVariantBlock)noteblock).noteblockWoodType + "_noteblock"), noteblock);
         more_noteblocks.add(noteblock);
     }
 }
