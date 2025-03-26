@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:mangrove_planks"
+            "items": [ "minecraft:crimson_planks" ]
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:redstone"
+            "items": [ "minecraft:redstone" ]
           }
         ]
       },
@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quad-lolmjnv:mangrove_noteblock"
+        "recipe": "quad-lolmjnv:crimson_noteblock"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -37,7 +37,7 @@
   ],
   "rewards": {
     "recipes": [
-      "quad-lolmjnv:mangrove_noteblock"
+      "quad-lolmjnv:crimson_noteblock"
     ]
   }
 }

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:bamboo_planks"
+            "items": [ "minecraft:cherry_planks" ]
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:redstone"
+            "items": [ "minecraft:redstone" ]
           }
         ]
       },
@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quad-lolmjnv:bamboo_noteblock"
+        "recipe": "quad-lolmjnv:cherry_noteblock"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -37,7 +37,7 @@
   ],
   "rewards": {
     "recipes": [
-      "quad-lolmjnv:bamboo_noteblock"
+      "quad-lolmjnv:cherry_noteblock"
     ]
   }
 }

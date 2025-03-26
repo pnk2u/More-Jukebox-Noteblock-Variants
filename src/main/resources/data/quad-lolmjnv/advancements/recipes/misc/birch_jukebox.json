@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:diamond"
+            "items": [ "minecraft:diamond" ]
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:jungle_planks"
+            "items": [ "minecraft:birch_planks" ]
           }
         ]
       },
@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "quad-lolmjnv:jungle_jukebox"
+        "recipe": "quad-lolmjnv:birch_jukebox"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -37,7 +37,7 @@
   ],
   "rewards": {
     "recipes": [
-      "quad-lolmjnv:jungle_jukebox"
+      "quad-lolmjnv:birch_jukebox"
     ]
   }
 }
