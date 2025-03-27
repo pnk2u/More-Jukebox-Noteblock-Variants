@@ -19,6 +19,7 @@ import static de.pnku.mjnv.init.MjnvBlockInit.*;
 public class MjnvItemInit {
     public static final BlockItem BIRCH_JUKEBOX_I = itemFromBlock(BIRCH_JUKEBOX);
     public static final BlockItem DARK_OAK_JUKEBOX_I = itemFromBlock(DARK_OAK_JUKEBOX);
+    public static final BlockItem PALE_OAK_JUKEBOX_I = itemFromBlock(PALE_OAK_JUKEBOX);
     public static final BlockItem OAK_JUKEBOX_I = itemFromBlock(OAK_JUKEBOX);
     public static final BlockItem SPRUCE_JUKEBOX_I = itemFromBlock(SPRUCE_JUKEBOX);
     public static final BlockItem JUNGLE_JUKEBOX_I = itemFromBlock(JUNGLE_JUKEBOX);
@@ -30,6 +31,7 @@ public class MjnvItemInit {
     public static final BlockItem WARPED_JUKEBOX_I = itemFromBlock(WARPED_JUKEBOX);
     public static final BlockItem BIRCH_NOTEBLOCK_I = itemFromBlock(BIRCH_NOTEBLOCK);
     public static final BlockItem DARK_OAK_NOTEBLOCK_I = itemFromBlock(DARK_OAK_NOTEBLOCK);
+    public static final BlockItem PALE_OAK_NOTEBLOCK_I = itemFromBlock(PALE_OAK_NOTEBLOCK);
     public static final BlockItem OAK_NOTEBLOCK_I = itemFromBlock(OAK_NOTEBLOCK);
     public static final BlockItem SPRUCE_NOTEBLOCK_I = itemFromBlock(SPRUCE_NOTEBLOCK);
     public static final BlockItem JUNGLE_NOTEBLOCK_I = itemFromBlock(JUNGLE_NOTEBLOCK);
@@ -52,7 +54,8 @@ public class MjnvItemInit {
     public static void registerJukeboxNoteblockItems() {
         registerJukeboxItem(BIRCH_JUKEBOX_I, Items.JUKEBOX);
         registerJukeboxItem(DARK_OAK_JUKEBOX_I, BIRCH_JUKEBOX_I);
-        registerJukeboxItem(OAK_JUKEBOX_I, DARK_OAK_JUKEBOX_I);
+        registerJukeboxItem(PALE_OAK_JUKEBOX_I, DARK_OAK_JUKEBOX_I);
+        registerJukeboxItem(OAK_JUKEBOX_I, PALE_OAK_JUKEBOX_I);
         registerJukeboxItem(SPRUCE_JUKEBOX_I, OAK_JUKEBOX_I);
         registerJukeboxItem(JUNGLE_JUKEBOX_I, SPRUCE_JUKEBOX_I);
         registerJukeboxItem(ACACIA_JUKEBOX_I, JUNGLE_JUKEBOX_I);
@@ -63,7 +66,8 @@ public class MjnvItemInit {
         registerJukeboxItem(WARPED_JUKEBOX_I, CRIMSON_JUKEBOX_I);
         registerNoteblockItem(BIRCH_NOTEBLOCK_I, Items.NOTE_BLOCK);
         registerNoteblockItem(DARK_OAK_NOTEBLOCK_I, BIRCH_NOTEBLOCK_I);
-        registerNoteblockItem(OAK_NOTEBLOCK_I, DARK_OAK_NOTEBLOCK_I);
+        registerNoteblockItem(PALE_OAK_NOTEBLOCK_I, DARK_OAK_NOTEBLOCK_I);
+        registerNoteblockItem(OAK_NOTEBLOCK_I, PALE_OAK_NOTEBLOCK_I);
         registerNoteblockItem(SPRUCE_NOTEBLOCK_I, OAK_NOTEBLOCK_I);
         registerNoteblockItem(JUNGLE_NOTEBLOCK_I, SPRUCE_NOTEBLOCK_I);
         registerNoteblockItem(ACACIA_NOTEBLOCK_I, JUNGLE_NOTEBLOCK_I);

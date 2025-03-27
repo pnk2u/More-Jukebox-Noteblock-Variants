@@ -16,6 +16,7 @@ import java.util.List;
 public class MjnvBlockInit {
     public static final Block BIRCH_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.SAND, "birch");
     public static final Block DARK_OAK_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.COLOR_BROWN, "dark_oak");
+    public static final Block PALE_OAK_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.QUARTZ, "pale_oak");
     public static final Block OAK_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.WOOD, "oak");
     public static final Block SPRUCE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.PODZOL, "spruce");
     public static final Block JUNGLE_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.DIRT, "jungle");
@@ -27,6 +28,7 @@ public class MjnvBlockInit {
     public static final Block WARPED_JUKEBOX = new MoreJukeboxVariantBlock(MapColor.WARPED_STEM, SoundType.NETHER_WOOD, "warped");
     public static final Block BIRCH_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.SAND, "birch");
     public static final Block DARK_OAK_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.COLOR_BROWN, "dark_oak");
+    public static final Block PALE_OAK_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.QUARTZ, "pale_oak");
     public static final Block OAK_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.WOOD, "oak");
     public static final Block SPRUCE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.PODZOL, "spruce");
     public static final Block JUNGLE_NOTEBLOCK = new MoreNoteblockVariantBlock(MapColor.DIRT, "jungle");
@@ -44,6 +46,7 @@ public class MjnvBlockInit {
     public static void registerJukeboxNoteblockBlocks() {
         registerJukeboxBlock(BIRCH_JUKEBOX);
         registerJukeboxBlock(DARK_OAK_JUKEBOX);
+        registerJukeboxBlock(PALE_OAK_JUKEBOX);
         registerJukeboxBlock(OAK_JUKEBOX);
         registerJukeboxBlock(SPRUCE_JUKEBOX);
         registerJukeboxBlock(JUNGLE_JUKEBOX);
@@ -55,6 +58,7 @@ public class MjnvBlockInit {
         registerJukeboxBlock(WARPED_JUKEBOX);
         registerNoteblockBlock(BIRCH_NOTEBLOCK);
         registerNoteblockBlock(DARK_OAK_NOTEBLOCK);
+        registerNoteblockBlock(PALE_OAK_NOTEBLOCK);
         registerNoteblockBlock(OAK_NOTEBLOCK);
         registerNoteblockBlock(SPRUCE_NOTEBLOCK);
         registerNoteblockBlock(JUNGLE_NOTEBLOCK);

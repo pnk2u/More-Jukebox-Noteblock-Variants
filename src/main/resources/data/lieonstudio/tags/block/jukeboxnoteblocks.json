@@ -12,6 +12,7 @@
     "quad-lolmjnv:cherry_jukebox",
     "quad-lolmjnv:oak_jukebox",
     "quad-lolmjnv:dark_oak_jukebox",
+    "quad-lolmjnv:pale_oak_jukebox",
     "quad-lolmjnv:spruce_noteblock",
     "quad-lolmjnv:birch_noteblock",
     "quad-lolmjnv:jungle_noteblock",
@@ -22,6 +23,7 @@
     "quad-lolmjnv:bamboo_noteblock",
     "quad-lolmjnv:cherry_noteblock",
     "quad-lolmjnv:oak_noteblock",
-    "quad-lolmjnv:dark_oak_noteblock"
+    "quad-lolmjnv:dark_oak_noteblock",
+    "quad-lolmjnv:pale_oak_noteblock"
   ]
 }
