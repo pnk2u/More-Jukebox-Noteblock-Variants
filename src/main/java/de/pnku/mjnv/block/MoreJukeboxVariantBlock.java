@@ -30,7 +30,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MoreJukeboxVariantBlock extends JukeboxBlock {
-    public static final BooleanProperty HAS_RECORD;
     public final String jukeboxWoodType;
 
     public MoreJukeboxVariantBlock(MapColor colour, String jukeboxWoodType) {
@@ -41,68 +40,6 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
     public MoreJukeboxVariantBlock(MapColor colour, SoundType sound, String jukeboxWoodType) {
         super(Properties.copy(Blocks.JUKEBOX).mapColor(colour).sound(sound));
         this.jukeboxWoodType = jukeboxWoodType;
-    }
-    @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if ((Boolean)state.getValue(HAS_RECORD)) {
-            BlockEntity var7 = level.getBlockEntity(pos);
-            if (var7 instanceof MoreJukeboxVariantBlockEntity) {
-                MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)var7;
-                moreJukeboxVariantBlockEntity.popOutRecord();
-                return InteractionResult.sidedSuccess(level.isClientSide);
-            }
-        }
-
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity var7 = level.getBlockEntity(pos);
-            if (var7 instanceof MoreJukeboxVariantBlockEntity) {
-                MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)var7;
-                moreJukeboxVariantBlockEntity.popOutRecord();
-            }
-
-            super.onRemove(state, level, pos, newState, movedByPiston);
-        }
-    }
-
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new MoreJukeboxVariantBlockEntity(pos, state);
-    }
-
-    @Override
-    public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        BlockEntity var6 = level.getBlockEntity(pos);
-        if (var6 instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
-            if (moreJukeboxVariantBlockEntity.isRecordPlaying()) {
-                return 15;
-            }
-        }
-
-        return 0;
-    }
-
-    @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        BlockEntity var6 = level.getBlockEntity(pos);
-        if (var6 instanceof MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity) {
-            Item var7 = moreJukeboxVariantBlockEntity.getFirstItem().getItem();
-            if (var7 instanceof RecordItem recordItem) {
-                return recordItem.getAnalogOutput();
-            }
-        }
-
-        return 0;
-    }
-
-    @Override
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return (Boolean)state.getValue(HAS_RECORD) ? createTickerHelper(blockEntityType, MjnvBlockInit.MORE_JUKEBOX_VARIANT_BLOCK_ENTITY, MoreJukeboxVariantBlockEntity::playRecordTick) : null;
     }
 
     public Item getPlanksItem(String planksWood) {
@@ -143,13 +80,5 @@ public class MoreJukeboxVariantBlock extends JukeboxBlock {
 
         }
         return null;
-    }
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{HAS_RECORD});
-    }
-
-    static {
-        HAS_RECORD = BlockStateProperties.HAS_RECORD;
     }
 }
