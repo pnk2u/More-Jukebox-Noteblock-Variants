@@ -1,7 +1,6 @@
 package de.pnku.mjnv.mixin;
 
 import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
-import de.pnku.mjnv.block.MoreJukeboxVariantBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
@@ -11,6 +10,7 @@ import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,8 +31,7 @@ public class RecordItemMixin {
             if (!level.isClientSide) {
                 Player player = context.getPlayer();
                 BlockEntity blockEntity = level.getBlockEntity(blockPos);
-                if (blockEntity instanceof MoreJukeboxVariantBlockEntity) {
-                    MoreJukeboxVariantBlockEntity moreJukeboxVariantBlockEntity = (MoreJukeboxVariantBlockEntity)blockEntity;
+                if (blockEntity instanceof JukeboxBlockEntity moreJukeboxVariantBlockEntity) {
                     moreJukeboxVariantBlockEntity.setFirstItem(itemStack.copy());
                     level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, blockState));
                 }

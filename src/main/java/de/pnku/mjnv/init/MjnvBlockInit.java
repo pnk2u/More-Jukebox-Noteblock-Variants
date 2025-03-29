@@ -64,10 +64,6 @@ public class MjnvBlockInit {
         registerNoteblockBlock(BAMBOO_NOTEBLOCK);
         registerNoteblockBlock(CRIMSON_NOTEBLOCK);
         registerNoteblockBlock(WARPED_NOTEBLOCK);
-
-        for (Block jukeboxBlock : more_jukeboxes) {
-            BlockEntityType.JUKEBOX.addSupportedBlock(jukeboxBlock);
-        }
     }
 
     private static void registerJukeboxBlock(Block jukebox) {
