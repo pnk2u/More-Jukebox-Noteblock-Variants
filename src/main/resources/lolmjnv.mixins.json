@@ -6,7 +6,8 @@
     "AllayAiMixin",
     "AllayMixin",
     "BlockEntityTypeMixin",
-    "RecordItemMixin"
+    "RecordItemMixin",
+    "ParrotMixin"
   ],
   "injectors": {
     "defaultRequire": 1
