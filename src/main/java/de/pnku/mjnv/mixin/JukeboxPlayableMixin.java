@@ -29,7 +29,7 @@ public class JukeboxPlayableMixin {
         } else {
             BlockState blockState = level.getBlockState(pos);
             if (blockState.getBlock() instanceof MoreJukeboxVariantBlock && !(Boolean)blockState.getValue(MoreJukeboxVariantBlock.HAS_RECORD)) {
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     ItemStack itemStack = stack.consumeAndReturn(1, player);
                     BlockEntity blockEntity = level.getBlockEntity(pos);
                     if (blockEntity instanceof JukeboxBlockEntity jukeboxBlockEntity) {
