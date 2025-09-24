@@ -14,7 +14,7 @@
 		"issues": "https://github.com/pnk2u/More-Jukebox-Noteblock-Variants/issues"
 	},
 	"license": "${mod_license}",
-	"icon": "logo.png",
+	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"fabric-datagen": [
@@ -29,7 +29,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=${loader_version}",
-		"minecraft": ">=${minecraft_version_0} <${minecraft_version_1}",
+		"minecraft": ">${minecraft_version_0} <${minecraft_version_1}",
 		"java": ">=21",
 		"fabric-api": ">=0.100.0"
 	},
@@ -38,6 +38,13 @@
 			"links": {
 				"modmenu.discord": "https://discord.com/invite/sA42pp6cuX"
 			}
+		},
+		"mc-publish": {
+			"modrinth": "CLgavC7x",
+			"curseforge": "1083947",
+			"dependencies": [
+				"fabric-api(required)#(ignore)"
+			]
 		}
 	}
 }
