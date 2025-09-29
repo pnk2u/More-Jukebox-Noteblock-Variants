@@ -25,7 +25,7 @@ Want to help translate? Feel free to open a PR to the **default branch (`1.21(.1
 
 <!--CHANGELOG:START-->
 ### 1.2.1:
-- `1.21.4(-9)`: Update to 1.21.9
+- `1.21.5(-9)`: Update to 1.21.9
 ## 1.2.0:
 - Fix Tamed Parrots not being able to dance along with playing Jukebox variants
 - Add Polish Translation (Thanks to MateuszLegend2819)
