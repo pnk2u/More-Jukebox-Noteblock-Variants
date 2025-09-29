@@ -1,3 +1,5 @@
+### 1.2.1:
+- `1.21.4(-9)`: Update to 1.21.9
 ## 1.2.0:
 - Fix Tamed Parrots not being able to dance along with playing Jukebox variants
 - Add Polish Translation (Thanks to MateuszLegend2819)
