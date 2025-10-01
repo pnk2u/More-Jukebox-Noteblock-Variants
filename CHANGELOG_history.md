@@ -1,3 +1,5 @@
+### 1.2.2:
+- `1.21.5(-9)`: Fix incorrectly requiring 1.21.9 instead of 1.21.5
 ### 1.2.1:
 - `1.21.5(-9)`: Update to 1.21.9
 ## 1.2.0:
