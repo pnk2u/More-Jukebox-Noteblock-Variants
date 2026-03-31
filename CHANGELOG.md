@@ -1,3 +1,7 @@
 <!--publish=false-->
-### 1.2.2:
-- `1.21.5(-9)`: Fix incorrectly requiring 1.21.9 instead of 1.21.5
+### 1.2.3:
+- `26.1`: Update to <ins>26.1</ins>
+- Add Japanese translation (Thanks to [@HayaKoh-WeldyAlin](https://www.github.com/HayaKoh-WeldyAlin))
+
+<br></br>
+<sub>License update to [`CC-BY-NC-SA-4.0`](https://creativecommons.org/licenses/by-nc-sa/4.0/) (previously [`MIT`](https://choosealicense.com/licenses/mit))</sub>

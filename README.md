@@ -24,6 +24,8 @@ Want to help translate? Feel free to open a PR to the **default branch (`1.21(.1
 ### Changelog History
 
 <!--CHANGELOG:START-->
+### 1.2.2:
+- `1.21.5(-9)`: Fix incorrectly requiring 1.21.9 instead of 1.21.5
 ### 1.2.1:
 - `1.21.5(-9)`: Update to 1.21.9
 ## 1.2.0:
@@ -49,6 +51,6 @@ Want to help translate? Feel free to open a PR to the **default branch (`1.21(.1
 ---
 #### Support/Contact
 - Suggestions? Questions? Bug reports?  
-  Feel free to [open an issue](https://github.com/pnk2u/More-Frame-Variants/issues)!  
+  Feel free to [open an issue](/../../issues)!  
   &nbsp;  
   You can also contact me via email at [contact@pnku.de](mailto:contact@pnku.de) or join the [Discord](https://dsc.lieonlion.dev) and contact me there.
