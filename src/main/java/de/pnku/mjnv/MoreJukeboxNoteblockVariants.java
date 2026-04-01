@@ -4,7 +4,7 @@ import de.pnku.mjnv.init.MjnvBlockInit;
 import de.pnku.mjnv.init.MjnvItemInit;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,7 @@ public class MoreJukeboxNoteblockVariants implements ModInitializer {
         MjnvItemInit.registerJukeboxNoteblockItems();
     }
 
-    public static ResourceLocation asId(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    public static Identifier asId(String path) {
+        return Identifier.fromNamespaceAndPath(MODID, path);
     }
 }
