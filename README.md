@@ -35,6 +35,14 @@
       </td>
     </tr>
   </thead>
+  <thead>
+    <tr>
+      <td><strong>Compatible</strong></td>
+      <td>
+        <a href="https://modrinth.com/mod/vinurl"><sub><img width="16" src="https://raw.githubusercontent.com/Plompi/VinURL/1.21(-1)/src/main/resources/assets/vinurl/icon.png"></sub><code>VinURL</code></a>
+      </td>
+    </tr>
+  </thead>
 </table>
 <br>
 
