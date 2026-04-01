@@ -70,7 +70,7 @@ public class MjnvBlockInit {
         registerNoteblockBlock(WARPED_NOTEBLOCK);
 
         for (Block jukeboxBlock : more_jukeboxes) {
-            BlockEntityType.JUKEBOX.addSupportedBlock(jukeboxBlock);
+            BlockEntityType.JUKEBOX.addValidBlock(jukeboxBlock);
         }
     }
 

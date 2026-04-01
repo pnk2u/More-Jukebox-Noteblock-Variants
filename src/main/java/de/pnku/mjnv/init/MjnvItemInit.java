@@ -3,7 +3,7 @@ package de.pnku.mjnv.init;
 import de.pnku.mjnv.MoreJukeboxNoteblockVariants;
 import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
 import de.pnku.mjnv.block.MoreNoteblockVariantBlock;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -81,12 +81,12 @@ public class MjnvItemInit {
     private static void registerJukeboxItem(BlockItem jukebox, Item jukeboxAfter) {
         Registry.register(BuiltInRegistries.ITEM, MoreJukeboxNoteblockVariants.asId(((MoreJukeboxVariantBlock) jukebox.getBlock()).jukeboxWoodType + "_jukebox"), jukebox);
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> entries.addAfter(jukeboxAfter, jukebox));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> entries.insertAfter(jukeboxAfter, jukebox));
     }
 
     private static void registerNoteblockItem(BlockItem noteblock, Item noteblockAfter) {
         Registry.register(BuiltInRegistries.ITEM, MoreJukeboxNoteblockVariants.asId(((MoreNoteblockVariantBlock) noteblock.getBlock()).noteblockWoodType + "_noteblock"), noteblock);
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> entries.addAfter(noteblockAfter, noteblock));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> entries.insertAfter(noteblockAfter, noteblock));
     }
 }
