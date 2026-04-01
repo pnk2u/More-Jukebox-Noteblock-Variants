@@ -32,7 +32,6 @@ repositories {
 }
 
 fabricApi {
-	configureDataGeneration()
 }
 
 loom {
