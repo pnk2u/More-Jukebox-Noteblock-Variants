@@ -15,9 +15,6 @@
 	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"fabric-datagen": [
-			"de.pnku.mjnv.MoreJukeboxNoteblockVariantsDatagen"
-		],
 		"main": [
 			"de.pnku.mjnv.MoreJukeboxNoteblockVariants"
 		]
