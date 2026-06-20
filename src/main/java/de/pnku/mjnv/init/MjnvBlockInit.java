@@ -4,6 +4,7 @@ import de.pnku.mjnv.MoreJukeboxNoteblockVariants;
 import de.pnku.mjnv.block.MoreJukeboxVariantBlock;
 import de.pnku.mjnv.block.MoreNoteblockVariantBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.SoundType;
@@ -70,7 +71,7 @@ public class MjnvBlockInit {
         registerNoteblockBlock(WARPED_NOTEBLOCK);
 
         for (Block jukeboxBlock : more_jukeboxes) {
-            BlockEntityType.JUKEBOX.addValidBlock(jukeboxBlock);
+            BuiltInRegistries.BLOCK_ENTITY_TYPE.get(Identifier.withDefaultNamespace("jukebox")).orElseThrow().value().addValidBlock(jukeboxBlock);
         }
     }
 
