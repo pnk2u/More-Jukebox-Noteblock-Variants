@@ -17,7 +17,7 @@
       <td>
         <a href="https://modrinth.com/mod/more-jukebox-noteblock-variants/versions?g=1.20.1"><code>1.20.1</code></a><br>
         <a href="https://modrinth.com/mod/more-jukebox-noteblock-variants/versions?g=1.21&g=1.21.1"><code>1.21(.1)</code></a>, <a href="https://modrinth.com/mod/more-jukebox-noteblock-variants/versions?g=1.21.4&g=1.21.5&g=1.21.6&g=1.21.7&g=1.21.8&g=1.21.9&g=1.21.10?g=1.21.11"><code>1.21.4</code>~<code>1.21.11</code></a><br>
-        <a href="https://modrinth.com/mod/more-jukebox-noteblock-variants/versions?g=26.1"><code>26.1</code></a>
+        <a href="https://modrinth.com/mod/more-jukebox-noteblock-variants/versions?g=26.1&g=26.2"><code>26.1(2)</code></a>
       </td>
     </tr>
   </thead>
@@ -32,6 +32,14 @@
       <td><strong>Requires</strong></td>
       <td>
         <a href="https://modrinth.com/mod/fabric-api"><sub><img width="16" src="https://raw.githubusercontent.com/FabricMC/fabric/1.21.10/src/main/resources/assets/fabric/icon.png"></sub><code>Fabric API</code></a>
+      </td>
+    </tr>
+  </thead>
+  <thead>
+    <tr>
+      <td><strong>Compatible</strong></td>
+      <td>
+        <a href="https://modrinth.com/mod/vinurl"><sub><img width="16" src="https://raw.githubusercontent.com/Plompi/VinURL/1.21(-1)/src/main/resources/assets/vinurl/icon.png"></sub><code>VinURL</code></a>
       </td>
     </tr>
   </thead>
